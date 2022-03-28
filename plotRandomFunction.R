@@ -4,6 +4,8 @@
 ##
 ## Morgan Danko
 ## March 18, 2022
+## Amended on March 28th, 2022
+##  to do some error checking
 ##
 ## A function that generates
 ##   a sequence of random normal variables
@@ -22,11 +24,33 @@
 #   hist(rnorm(n=n, mean=0, sd=1))
 # }
 
-## Today, we will add to it. 
+## Today, we will add to it.
+
+## is.wholenumber() is from the help documentation
+## for is.integer -- help(is.integer)
+## it simply checks if a number is an integer or not. 
+
+is.wholenumber <- function(x, tol = .Machine$double.eps^0.5) {
+  abs(x - round(x)) < tol
+}
 
 plotRandom <- function(n=1, mu=0, sigma=1, hist_breaks=6) {
-  hist(rnorm(n=n, mean=mu, sd=sigma),
+  if(n < 0) {
+    stop("Sample size n must be positive")
+  } 
+  if(!is.wholenumber(n) ) { ## IF IT'S NOOOOT A WHOLE NUMBER
+    warning(paste("Sample size n must be a whole number\n   R is using n=floor(n)=",
+                  floor(n)))
+  }
+hist(rnorm(n=n, mean=mu, sd=sigma),
        breaks=hist_breaks)
-}
+  }
+
+
+
+
+
+
+
 
 
