@@ -44,7 +44,7 @@ plotRandom <- function(n=1, mu=0, sigma=1, hist_breaks=6) {
   }
 hist(rnorm(n=n, mean=mu, sd=sigma),
        breaks=hist_breaks)
-  }
+}
 
 
 
